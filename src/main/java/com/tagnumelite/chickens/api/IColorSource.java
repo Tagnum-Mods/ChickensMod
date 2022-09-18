@@ -1,6 +1,6 @@
-package com.setycz.chickens;
+package com.tagnumelite.chickens.api;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * Created by setyc on 25.03.2016.
