@@ -92,6 +92,13 @@ repositories {
     maven { name "Tterrag"; url "https://maven.tterrag.com/" }
     maven { name "Progwml6"; url "https://dvs1.progwml6.com/files/maven/" }
     maven { name "ModMaven"; url "https://modmaven.dev" }
+    maven {
+        name "CurseMaven"
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {
@@ -112,7 +119,7 @@ dependencies {
     // at runtime, use the full JEI jar for Forge
     runtimeOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}"))
 
-    //compile "mcp.mobius.waila:Waila:1.7.0-B3_1.9.4"
+    implementation fg.deobf("curse.maven:jade-324717:${jade_version}")
 }
 
 jar {
