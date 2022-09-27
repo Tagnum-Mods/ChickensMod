@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:glowstone_dust"
+    }
+  ],
+  "primaryColor": 16776960,
+  "secondaryColor": 16777062,
+  "tier": 2
+}

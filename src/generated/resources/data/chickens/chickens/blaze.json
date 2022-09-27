@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:blaze_rod"
+    }
+  ],
+  "primaryColor": 16724736,
+  "secondaryColor": 16777062,
+  "tier": 4
+}

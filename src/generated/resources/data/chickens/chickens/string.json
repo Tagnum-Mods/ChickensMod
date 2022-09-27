@@ -1,0 +1,16 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:string"
+    },
+    {
+      "Count": 1,
+      "id": "minecraft:spider_eye"
+    }
+  ],
+  "primaryColor": 8388608,
+  "secondaryColor": 3348992,
+  "tier": 2
+}

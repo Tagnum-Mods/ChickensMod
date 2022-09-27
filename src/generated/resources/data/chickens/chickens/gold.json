@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:gold_nugget"
+    }
+  ],
+  "primaryColor": 16777088,
+  "secondaryColor": 13421568,
+  "tier": 3
+}

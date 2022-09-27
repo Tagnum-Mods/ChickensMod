@@ -1,0 +1,11 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:sand"
+    }
+  ],
+  "primaryColor": 10985580,
+  "secondaryColor": 15525297
+}

@@ -1,0 +1,11 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:jungle_log"
+    }
+  ],
+  "primaryColor": 5407576,
+  "secondaryColor": 9995373
+}

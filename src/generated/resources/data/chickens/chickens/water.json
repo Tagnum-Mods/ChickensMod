@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "chickens:fluid_egg"
+    }
+  ],
+  "primaryColor": 8421631,
+  "secondaryColor": 153,
+  "tier": 3
+}

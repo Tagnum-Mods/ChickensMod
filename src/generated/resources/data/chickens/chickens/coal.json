@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:coal"
+    }
+  ],
+  "primaryColor": 0,
+  "secondaryColor": 2500134,
+  "tier": 2
+}

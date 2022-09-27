@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:redstone"
+    }
+  ],
+  "primaryColor": 8388608,
+  "secondaryColor": 15073280,
+  "tier": 2
+}

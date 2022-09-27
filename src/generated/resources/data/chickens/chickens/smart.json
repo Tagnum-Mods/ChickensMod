@@ -1,0 +1,11 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:egg"
+    }
+  ],
+  "primaryColor": 16776960,
+  "secondaryColor": 16777215
+}

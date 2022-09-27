@@ -1,0 +1,11 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:quartz"
+    }
+  ],
+  "primaryColor": 1703936,
+  "secondaryColor": 5046272
+}

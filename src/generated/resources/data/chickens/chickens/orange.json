@@ -1,0 +1,11 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:orange_dye"
+    }
+  ],
+  "primaryColor": 16738335,
+  "secondaryColor": 14188339
+}

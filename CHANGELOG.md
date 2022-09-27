@@ -9,6 +9,7 @@
 - Add DataProviders for ChickenData and FluidEggData
 - Breeding Recipe and Throwing Recipe and its related Serializers and Builder
 - Add DataGenerators for easier dev
+- Add DataGen for vanilla eggs
 
 ### Changed
 - Change build to 1.19.2

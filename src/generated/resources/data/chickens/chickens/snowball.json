@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:snowball"
+    }
+  ],
+  "primaryColor": 35020,
+  "secondaryColor": 3390463,
+  "tier": 3
+}

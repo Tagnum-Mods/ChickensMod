@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:diamond"
+    }
+  ],
+  "primaryColor": 15135487,
+  "secondaryColor": 10079487,
+  "tier": 4
+}

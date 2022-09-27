@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:leather"
+    }
+  ],
+  "primaryColor": 9539985,
+  "secondaryColor": 10985580,
+  "tier": 3
+}

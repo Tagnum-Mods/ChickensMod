@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:ender_pearl"
+    }
+  ],
+  "primaryColor": 6707,
+  "secondaryColor": 6656,
+  "tier": 5
+}

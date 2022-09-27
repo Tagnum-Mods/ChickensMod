@@ -1,0 +1,11 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:gray_dye"
+    }
+  ],
+  "primaryColor": 8421504,
+  "secondaryColor": 5000268
+}

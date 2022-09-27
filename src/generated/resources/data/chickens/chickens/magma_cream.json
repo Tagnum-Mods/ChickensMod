@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:magma_cream"
+    }
+  ],
+  "primaryColor": 0,
+  "secondaryColor": 1705216,
+  "tier": 5
+}

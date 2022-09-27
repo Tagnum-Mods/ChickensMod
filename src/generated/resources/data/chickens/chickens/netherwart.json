@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:nether_wart"
+    }
+  ],
+  "primaryColor": 3348992,
+  "secondaryColor": 8388608,
+  "tier": 3
+}

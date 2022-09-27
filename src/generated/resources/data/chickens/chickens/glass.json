@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:glass"
+    }
+  ],
+  "primaryColor": 15658751,
+  "secondaryColor": 16777215,
+  "tier": 2
+}

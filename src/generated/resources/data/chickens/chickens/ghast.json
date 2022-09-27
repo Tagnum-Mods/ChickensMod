@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:ghast_tear"
+    }
+  ],
+  "primaryColor": 16777215,
+  "secondaryColor": 16777164,
+  "tier": 5
+}

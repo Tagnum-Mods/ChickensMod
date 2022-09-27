@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:slime_ball"
+    }
+  ],
+  "primaryColor": 10092475,
+  "secondaryColor": 39219,
+  "tier": 4
+}

@@ -1,0 +1,12 @@
+{
+  "biomes": [],
+  "drops": [
+    {
+      "Count": 1,
+      "id": "minecraft:iron_ingot"
+    }
+  ],
+  "primaryColor": 16764108,
+  "secondaryColor": 16777164,
+  "tier": 2
+}
