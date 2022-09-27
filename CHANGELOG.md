@@ -37,8 +37,9 @@
 - Item Color Handler and IColorSource
 - SpawnType as it is no longer used
 - Unused methods in the Proxies
-- IInventoryGui interface as it is not longer used
+- IInventoryGui interface as it is no longer used
 
 ### Fixed
+- Children being able to inherit stats
 
 ### Security

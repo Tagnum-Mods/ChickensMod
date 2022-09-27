@@ -50,10 +50,6 @@ public class ChickenManager extends SimpleJsonResourceReloadListener {
         return chickens.getOrDefault(name, ChickenData.EMPTY);
     }
 
-    public ChickenData getRandomChild(ResourceLocation chickenDescription, ResourceLocation mateChickenDescription) {
-        return null;
-    }
-
     public List<Tuple<ResourceLocation, ChickenData>> getChickensForBiome(Holder<Biome> biome) {
         // TODO: THIS
         //getChickens().entrySet().stream().filter(entry -> {biome.is})

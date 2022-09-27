@@ -66,26 +66,7 @@ public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnDa
         super(entityType, level);
     }
 
-    private static void inheritStats(ChickensChicken newChicken, ChickensChicken parent) {
-        newChicken.setGrowth(parent.getGrowth());
-        newChicken.setGain(parent.getGain());
-        newChicken.setStrength(parent.getStrength());
-    }
-
-    private static void increaseStats(ChickensChicken newChicken, ChickensChicken parent1, ChickensChicken parent2, RandomSource rand) {
-        int parent1Strength = parent1.getStrength();
-        int parent2Strength = parent2.getStrength();
-        newChicken.setGrowth(calculateNewStat(parent1Strength, parent2Strength, parent1.getGrowth(), parent2.getGrowth(), rand));
-        newChicken.setGain(calculateNewStat(parent1Strength, parent2Strength, parent2.getGain(), parent2.getGain(), rand));
-        newChicken.setStrength(calculateNewStat(parent1Strength, parent2Strength, parent1Strength, parent2Strength, rand));
-    }
-
-    private static int calculateNewStat(int thisStrength, int mateStrength, int stat1, int stat2, RandomSource rand) {
-        int mutation = rand.nextInt(2) + 1;
-        int newStatValue = (stat1 * thisStrength + stat2 * mateStrength) / (thisStrength + mateStrength) + mutation;
-        if (newStatValue <= 1) return 1;
-        return Math.min(newStatValue, 10);
-    }
+    // Stats
 
     @Override
     protected void defineSynchedData() {
@@ -148,6 +129,8 @@ public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnDa
         return getChickenData().tier();
     }
 
+    // Other
+
     @Override
     public @NotNull Component getName() {
         if (this.hasCustomName()) {
@@ -157,27 +140,66 @@ public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnDa
         return Component.translatable("entity." + getChickenType().toLanguageKey() + ".name");
     }
 
+    // Spawning & Offspring
+
+    private static void inheritStats(ChickensChicken offspring, ChickensChicken parent) {
+        offspring.setGrowth(parent.getGrowth());
+        offspring.setGain(parent.getGain());
+        offspring.setStrength(parent.getStrength());
+    }
+
+    private static void increaseStats(ChickensChicken offspring, ChickensChicken parent1, ChickensChicken parent2, RandomSource rand) {
+        int parent1Strength = parent1.getStrength();
+        int parent2Strength = parent2.getStrength();
+        offspring.setGrowth(calculateNewStat(parent1Strength, parent2Strength, parent1.getGrowth(), parent2.getGrowth(), rand));
+        offspring.setGain(calculateNewStat(parent1Strength, parent2Strength, parent2.getGain(), parent2.getGain(), rand));
+        offspring.setStrength(calculateNewStat(parent1Strength, parent2Strength, parent1Strength, parent2Strength, rand));
+    }
+
+    private static int calculateNewStat(int thisStrength, int mateStrength, int stat1, int stat2, RandomSource rand) {
+        int mutation = rand.nextInt(2) + 1;
+        int newStatValue = (stat1 * thisStrength + stat2 * mateStrength) / (thisStrength + mateStrength) + mutation;
+        if (newStatValue <= 1) return 1;
+        return Math.min(newStatValue, 10);
+    }
+
     @Override
     public Chicken getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mate) {
         ChickensChicken mateChicken = (ChickensChicken) mate;
 
-        // TODO: Replace null with actual container
         SimpleContainer container = new SimpleContainer(2);
         container.addItem(ModItems.SPAWN_EGG.get().fromChickenType(getChickenType()));
         container.addItem(ModItems.SPAWN_EGG.get().fromChickenType(mateChicken.getChickenType()));
         List<IBreedingRecipe> breeding = level.getRecipeManager().getRecipesFor(ModRecipeTypes.BREEDING.get(), container, level);
 
-        ChickensChicken offspring = ModEntityTypes.CHICKEN.get().create(level);
-        //offspring.setChickenType(childToBeBorn.getId());
+        ResourceLocation offSpringType = getChickenType();
+        boolean equalParents = getChickenType().equals(mateChicken.getChickenType());
+        if (!equalParents) {
+            List<ResourceLocation> choices = new ArrayList<>(2);
+            choices.add(getChickenType());
+            choices.add(mateChicken.getChickenType());
+            breeding.forEach(recipe -> choices.add(Utils.getTypeFromStack(recipe.getResultItem())));
 
-        //boolean mutatingStats = chickenDescription.getId() == mateChickenDescription.getId() && childToBeBorn.getId() == chickenDescription.getId();
-        //if (mutatingStats) {
-        //    increaseStats(offspring, this, mateChicken, random);
-        //} else if (chickenDescription.getId() == childToBeBorn.getId()) {
-        //    inheritStats(offspring, this);
-        //} else if (mateChickenDescription.getId() == childToBeBorn.getId()) {
-        //    inheritStats(offspring, mateChicken);
-        //}
+            offSpringType = Utils.randChoice(choices);
+        }
+
+        ChickensChicken offspring = ModEntityTypes.CHICKEN.get().create(level, Utils.typeTag(offSpringType), null, null, getOnPos(), MobSpawnType.BREEDING, true, true);
+
+        if (offspring != null) {
+            offspring.setChickenType(offSpringType); // Double Ensure because that's who I am
+            boolean mutatingStats = equalParents && offspring.getChickenType().equals(mateChicken.getChickenType());
+            if (mutatingStats) {
+                // Mutate stats as parents are the same
+                increaseStats(offspring, this, mateChicken, random);
+            } else if (getChickenType() == offspring.getChickenType()) {
+                // Child inherits this parents traits as they are the same
+                inheritStats(offspring, this);
+            } else if (mateChicken.getChickenType() == offspring.getChickenType()) {
+                // Offspring inherits mates traits as they are the same
+                inheritStats(offspring, mateChicken);
+            }
+        }
+
         return offspring;
     }
 
