@@ -13,6 +13,7 @@
 - Renamed Liquid Egg to Fluid Egg
 - Moved from ChickenMod to Chickens
 - Moved from `Registries` to Managers and Records so that we can use data files
+- Updated JEI support `NOTE: STILL WIP`
 
 ### Deprecated
 
