@@ -10,6 +10,7 @@
 - Change mappings to parchment
 - CreativeTab to CreativeModeTab
 - Renamed Liquid Egg to Fluid Egg
+- Moved from ChickenMod to Chickens
 
 ### Deprecated
 
