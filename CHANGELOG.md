@@ -18,6 +18,7 @@
 - Moved Proxies
 - Moved Item Registration to DeferredRegistry
 - Updated block and block entity registration
+- Updated ChickenTeachHandler
 
 ### Deprecated
 
