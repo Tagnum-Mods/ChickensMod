@@ -21,6 +21,7 @@
 - Updated block and block entity registration
 - Updated ChickenTeachHandler
 - Updated LiquidEggFluidWrapper to FluidEggWrapper
+- Updated Entity registration
 
 ### Deprecated
 
