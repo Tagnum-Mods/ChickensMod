@@ -67,6 +67,7 @@
   "entity.chickens.white.name": "White Chicken",
   "entity.chickens.yellow.name": "Yellow Chicken",
   "gui.chickens.container.henhouse.tooltip": "It will automatically collect items from chickens in 9x9x9 radius when provided with hay bale.",
+  "gui.chickens.name": "Name: ",
   "item.chickens.analyzer": "Chicken Analyzer",
   "item.chickens.analyzer.tooltip1": "Use it on chickens to determine their stats.",
   "item.chickens.analyzer.tooltip2": " - \"Which day of the week do chickens hate most? Fry-day!\"",

@@ -22,4 +22,5 @@ public class TranslationConstants {
     public static final String CONFIG_NETHER_SPAWN_CHANCE = "config.chickens.nether_spawn_chance";
     public static final String CONFIG_DROP_CHANCE_EGG = "config.chickens.drop_chance_egg";
     public static final String CONFIG_DROP_CHANCE_ITEM = "config.chickens.drop_chance_item";
+    public static final String NAME = "gui.chickens.name";
 }

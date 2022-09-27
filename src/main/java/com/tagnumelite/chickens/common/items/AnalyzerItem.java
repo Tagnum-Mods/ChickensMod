@@ -44,8 +44,7 @@ public class AnalyzerItem extends Item {
 
         MutableComponent chickenName = chicken.getName().copy();
         chickenName.setStyle(chickenName.getStyle().applyFormats(ChatFormatting.BOLD, ChatFormatting.GOLD));
-        // TODO: Replace literal with translatable
-        playerIn.sendSystemMessage(Component.literal("Name: ").append(chickenName));
+        playerIn.sendSystemMessage(Component.translatable(TranslationConstants.NAME).append(chickenName));
 
         playerIn.sendSystemMessage(Component.literal("- ").append(Component.translatable(TranslationConstants.CHICKEN_STATS_TIER, chicken.getTier())));
         playerIn.sendSystemMessage(Component.literal("- ").append(Component.translatable(TranslationConstants.CHICKEN_STATS_GROWTH, chicken.getGrowth())));
