@@ -68,6 +68,7 @@ public class Chickens {
         ModItems.ITEMS.register(modEventBus);
         ModBlockEntityTypes.BLOCK_ENTITY_TYPES.register(modEventBus);
         ModMenuTypes.MENU_TYPES.register(modEventBus);
+        ModEntityTypes.ENTITY_TYPES.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ChickenTeachHandler());
         MinecraftForge.EVENT_BUS.addListener((AddReloadListenerEvent event) -> {
@@ -106,6 +107,9 @@ public class Chickens {
 
     private void onClientSetup(FMLClientSetupEvent event) {
         MenuScreens.register(ModMenuTypes.HENHOUSE.get(), HenhouseScreen::new);
+
+        EntityRenderers.register(ModEntityTypes.COLORED_EGG.get(), ThrownItemRenderer::new);
+        EntityRenderers.register(ModEntityTypes.CHICKEN.get(), ChickensChickenRenderer::new);
     }
 
     private void onRegisterItemColorHandlers(RegisterColorHandlersEvent.Item event) {
@@ -113,6 +117,7 @@ public class Chickens {
     }
 
     private void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
+        event.put(ModEntityTypes.CHICKEN.get(), ChickensChicken.createAttributes().build());
     }
 
     // OLLD

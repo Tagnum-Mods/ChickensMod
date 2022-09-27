@@ -7,6 +7,7 @@
 - DefaultsConstants to make future modifications easier
 - Added utils and constants to make life easier
 - Add DataProviders for ChickenData and FluidEggData
+- Breeding Recipe and Throwing Recipe and its related Serializers and Builder
 
 ### Changed
 - Change build to 1.19.2
