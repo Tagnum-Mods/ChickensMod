@@ -16,6 +16,7 @@
 - Updated JEI support `NOTE: STILL WIP`
 - Moved Proxies
 - Moved Item Registration to DeferredRegistry
+- Updated block and block entity registration
 
 ### Deprecated
 
@@ -26,6 +27,7 @@
 - Item Color Handler and IColorSource
 - SpawnType as it is no longer used
 - Unused methods in the Proxies
+- IInventoryGui interface as it is not longer used
 
 ### Fixed
 
