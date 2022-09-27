@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "chickens:item/fluid_egg",
+    "layer1": "chickens:item/fluid_egg_overlay"
+  }
+}

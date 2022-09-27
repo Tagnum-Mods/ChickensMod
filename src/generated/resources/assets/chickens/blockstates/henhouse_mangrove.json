@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "chickens:block/henhouse_mangrove",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "chickens:block/henhouse_mangrove"
+    },
+    "facing=south": {
+      "model": "chickens:block/henhouse_mangrove",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "chickens:block/henhouse_mangrove",
+      "y": 270
+    }
+  }
+}
