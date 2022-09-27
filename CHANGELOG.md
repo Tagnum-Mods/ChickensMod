@@ -14,6 +14,7 @@
 - Moved from ChickenMod to Chickens
 - Moved from `Registries` to Managers and Records so that we can use data files
 - Updated JEI support `NOTE: STILL WIP`
+- Moved Proxies
 
 ### Deprecated
 
@@ -23,6 +24,7 @@
 - Old Waila support
 - Item Color Handler and IColorSource
 - SpawnType as it is no longer used
+- Unused methods in the Proxies
 
 ### Fixed
 
