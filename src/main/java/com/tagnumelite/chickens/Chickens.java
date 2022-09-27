@@ -51,6 +51,8 @@ public class Chickens {
     public static final String MOD_ID = "chickens";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final CommonProxy PROXY = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    private static final ChickenManager CHICKEN_MANAGER = new ChickenManager();
+    private static final FluidEggManager FLUID_EGG_MANAGER = new FluidEggManager();
 
     public Chickens() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
@@ -63,9 +65,23 @@ public class Chickens {
         modEventBus.addListener(this::onEntityAttributeCreation);
 
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.addListener((AddReloadListenerEvent event) -> {
+            event.addListener(CHICKEN_MANAGER);
+            event.addListener(FLUID_EGG_MANAGER);
+        });
+    }
+
+    public static ChickenManager getChickenManager() {
+        return CHICKEN_MANAGER;
+    }
+
+    public static FluidEggManager getLiquidEggManager() {
+        return FLUID_EGG_MANAGER;
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
+        LOGGER.debug("Enabled chickens: {}", CHICKEN_MANAGER.getChickens());
+        dumpChickens(CHICKEN_MANAGER.getChickens());
 
         // TODO: Biome Spawning
         /*

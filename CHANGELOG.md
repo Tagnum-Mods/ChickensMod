@@ -4,6 +4,7 @@
 ### Added
 - Patchouli dependencies
 - Jade support
+- DefaultsConstants to make future modifications easier
 
 ### Changed
 - Change build to 1.19.2
@@ -11,6 +12,7 @@
 - CreativeTab to CreativeModeTab
 - Renamed Liquid Egg to Fluid Egg
 - Moved from ChickenMod to Chickens
+- Moved from `Registries` to Managers and Records so that we can use data files
 
 ### Deprecated
 
