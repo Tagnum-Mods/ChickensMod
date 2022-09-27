@@ -18,6 +18,7 @@ public class ModDataGenerators {
 
         generator.addProvider(event.includeServer(), new VanillaChickenProvider(generator, existingFileHelper));
         generator.addProvider(event.includeServer(), new VanillaFluidEggProvider(generator, existingFileHelper));
+        generator.addProvider(event.includeServer(), new ModRecipeProvider(generator));
         generator.addProvider(event.includeServer(), new ModEntityTagProvider(generator, existingFileHelper));
 
         generator.addProvider(event.includeClient(), new ModBlockStateProvider(generator, existingFileHelper));

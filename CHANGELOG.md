@@ -10,6 +10,7 @@
 - Breeding Recipe and Throwing Recipe and its related Serializers and Builder
 - Add DataGenerators for easier dev
 - Add DataGen for vanilla eggs
+- Recipe Provider for standard and breeding recipes
 
 ### Changed
 - Change build to 1.19.2

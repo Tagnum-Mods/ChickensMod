@@ -1,0 +1,18 @@
+{
+  "type": "chickens:breeding",
+  "child": {
+    "count": 1,
+    "item": "chickens:spawn_egg",
+    "nbt": "{ChickenId:\"chickens:gold\"}"
+  },
+  "parent1": {
+    "count": 1,
+    "item": "chickens:spawn_egg",
+    "nbt": "{ChickenId:\"chickens:iron\"}"
+  },
+  "parent2": {
+    "count": 1,
+    "item": "chickens:spawn_egg",
+    "nbt": "{ChickenId:\"chickens:yellow\"}"
+  }
+}
