@@ -23,5 +23,6 @@ public class ModDataGenerators {
 
         generator.addProvider(event.includeClient(), new ModBlockStateProvider(generator, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModItemModelProvider(generator, existingFileHelper));
+        generator.addProvider(event.includeClient(), new ModLanguageProvider(generator));
     }
 }
