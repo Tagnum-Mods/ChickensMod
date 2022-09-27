@@ -15,6 +15,7 @@
 - Moved from `Registries` to Managers and Records so that we can use data files
 - Updated JEI support `NOTE: STILL WIP`
 - Moved Proxies
+- Moved Item Registration to DeferredRegistry
 
 ### Deprecated
 

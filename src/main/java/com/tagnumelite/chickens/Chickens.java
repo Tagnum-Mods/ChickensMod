@@ -64,6 +64,7 @@ public class Chickens {
         modEventBus.addListener(this::onRegisterItemColorHandlers);
         modEventBus.addListener(this::onEntityAttributeCreation);
 
+        ModItems.ITEMS.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.addListener((AddReloadListenerEvent event) -> {
             event.addListener(CHICKEN_MANAGER);
@@ -103,6 +104,7 @@ public class Chickens {
     }
 
     private void onRegisterItemColorHandlers(RegisterColorHandlersEvent.Item event) {
+        event.register((stack, layer) -> ((ItemColor) stack.getItem()).getColor(stack, layer), ModItems.SPAWN_EGG.get(), ModItems.COLORED_EGG.get(), ModItems.FLUID_EGG.get());
     }
 
     private void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
