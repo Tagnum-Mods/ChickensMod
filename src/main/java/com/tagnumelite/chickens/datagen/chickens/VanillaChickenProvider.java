@@ -24,7 +24,7 @@ public class VanillaChickenProvider extends ChickenProvider {
     @Override
     protected void gatherChickens(@NotNull BiConsumer<ResourceLocation, ChickenData> consumer) {
         // Dye Chickens
-        dyeChicken("white", DyeColor.WHITE).addDrop(Items.WHITE_DYE).addBiome(BiomeTags.IS_OVERWORLD).save(consumer);
+        dyeChicken("white", DyeColor.WHITE).addDrop(Items.WHITE_DYE).addBiomes(BiomeTags.IS_OVERWORLD).save(consumer);
         dyeChicken("yellow", DyeColor.YELLOW).addDrop(Items.YELLOW_DYE).save(consumer);
         dyeChicken("blue", DyeColor.BLUE).addDrop(Items.BLUE_DYE).save(consumer);
         dyeChicken("green", DyeColor.GREEN).addDrop(Items.GREEN_DYE).save(consumer);
@@ -42,20 +42,20 @@ public class VanillaChickenProvider extends ChickenProvider {
         dyeChicken("brown", DyeColor.BROWN).addDrop(Items.BROWN_DYE).save(consumer);
 
         // Base Chickens
-        chicken("smart").primaryColor(0xffff00).secondaryColor(0xffffff).addDrop(Items.EGG).addBiome(BiomeTags.IS_OVERWORLD).save(consumer);
-        chicken("flint").color(0xa3a375, 0x6b6b47).addBiome(BiomeTags.IS_OVERWORLD).addDrop(Items.FLINT).save(consumer);
-        chicken("quartz").color(0x1a0000, 0x4d0000).addDrop(Items.QUARTZ).addBiome(BiomeTags.IS_NETHER).save(consumer);
-        chicken("sand").color(0xa7a06c, 0xece5b1).addDrop(Blocks.SAND).addBiome(BiomeTags.IS_OVERWORLD).save(consumer);
+        chicken("smart").primaryColor(0xffff00).secondaryColor(0xffffff).addDrop(Items.EGG).addBiomes(BiomeTags.IS_OVERWORLD).save(consumer);
+        chicken("flint").color(0xa3a375, 0x6b6b47).addBiomes(BiomeTags.IS_OVERWORLD).addDrop(Items.FLINT).save(consumer);
+        chicken("quartz").color(0x1a0000, 0x4d0000).addDrop(Items.QUARTZ).addBiomes(BiomeTags.IS_NETHER).save(consumer);
+        chicken("sand").color(0xa7a06c, 0xece5b1).addDrop(Blocks.SAND).addBiomes(BiomeTags.IS_OVERWORLD).save(consumer);
 
-        chicken("acacia").color(0x665d54, 0x99502b).addDrop(Blocks.ACACIA_LOG).addBiome(BiomeTags.IS_SAVANNA).save(consumer);
-        chicken("birch").color(0xf0eeeb, 0x605e54).addDrop(Blocks.BIRCH_LOG).addBiome(BiomeTags.IS_FOREST).save(consumer); //.addBiome(Biomes.MEADOW)
-        chicken("crimson").color(0x4d2836, 0xac2020).addDrop(Blocks.CRIMSON_STEM).addBiome(BiomeTags.IS_NETHER).save(consumer);
-        chicken("dark_oak").color(0x292011, 0x492f17).addDrop(Blocks.DARK_OAK_LOG).addBiome(Tags.Biomes.IS_DENSE).save(consumer); // .addBiome(Biomes.DARK_FOREST)
-        chicken("jungle").color(0x3e3013, 0xaa7954).addDrop(Blocks.JUNGLE_LOG).addBiome(BiomeTags.IS_JUNGLE).save(consumer);
+        chicken("acacia").color(0x665d54, 0x99502b).addDrop(Blocks.ACACIA_LOG).addBiomes(BiomeTags.IS_SAVANNA).save(consumer);
+        chicken("birch").color(0xf0eeeb, 0x605e54).addDrop(Blocks.BIRCH_LOG).addBiomes(BiomeTags.IS_FOREST).save(consumer); //.addBiome(Biomes.MEADOW)
+        chicken("crimson").color(0x4d2836, 0xac2020).addDrop(Blocks.CRIMSON_STEM).addBiomes(BiomeTags.IS_NETHER).save(consumer);
+        chicken("dark_oak").color(0x292011, 0x492f17).addDrop(Blocks.DARK_OAK_LOG).addBiomes(Tags.Biomes.IS_DENSE).save(consumer); // .addBiome(Biomes.DARK_FOREST)
+        chicken("jungle").color(0x3e3013, 0xaa7954).addDrop(Blocks.JUNGLE_LOG).addBiomes(BiomeTags.IS_JUNGLE).save(consumer);
         chicken("mangrove").color(0x675230, 0x5d1c1e).addDrop(Blocks.MANGROVE_LOG).save(consumer); //.addBiome(Biomes.MANGROVE_SWAMP)
-        chicken("oak").color(0x528358, 0x98846d).addDrop(Blocks.OAK_LOG).addBiome(BiomeTags.IS_OVERWORLD).save(consumer);
-        chicken("spruce").color(0x553a1f, 0x7a5a34).addDrop(Blocks.SPRUCE_LOG).addBiome(Tags.Biomes.IS_COLD_OVERWORLD).save(consumer);// .addBiome(Biomes.TAIGA)
-        chicken("warped").color(0x4b2737, 0x398382).addDrop(Blocks.WARPED_STEM).addBiome(BiomeTags.IS_NETHER).save(consumer);
+        chicken("oak").color(0x528358, 0x98846d).addDrop(Blocks.OAK_LOG).addBiomes(BiomeTags.IS_OVERWORLD).save(consumer);
+        chicken("spruce").color(0x553a1f, 0x7a5a34).addDrop(Blocks.SPRUCE_LOG).addBiomes(Tags.Biomes.IS_COLD_OVERWORLD).save(consumer);// .addBiome(Biomes.TAIGA)
+        chicken("warped").color(0x4b2737, 0x398382).addDrop(Blocks.WARPED_STEM).addBiomes(BiomeTags.IS_NETHER).save(consumer);
 
         // Tier 2
         chicken("string").tier(2).color(0x800000, 0x331a00).addDrop(Items.STRING).addDrop(Items.SPIDER_EYE).save(consumer);
@@ -68,12 +68,12 @@ public class VanillaChickenProvider extends ChickenProvider {
 
         // Tier 3
         chicken("gold").tier(3).color(0xffff80, 0xcccc00).addDrop(Items.GOLD_NUGGET).save(consumer);
-        chicken("snowball").tier(3).color(0x0088cc, 0x33bbff).addDrop(Items.SNOWBALL).addBiome(Tags.Biomes.IS_COLD_OVERWORLD).save(consumer);
+        chicken("snowball").tier(3).color(0x0088cc, 0x33bbff).addDrop(Items.SNOWBALL).addBiomes(Tags.Biomes.IS_COLD_OVERWORLD).save(consumer);
         chicken("water").tier(3).color(0x8080ff, 0x000099).addDrop(FluidEggManager.getEgg(modRl("water"))).save(consumer);
-        chicken("lava").tier(3).color(0xffff00, 0xcc3300).addDrop(FluidEggManager.getEgg(modRl("lava"))).addBiome(BiomeTags.IS_NETHER).save(consumer);
+        chicken("lava").tier(3).color(0xffff00, 0xcc3300).addDrop(FluidEggManager.getEgg(modRl("lava"))).addBiomes(BiomeTags.IS_NETHER).save(consumer);
         chicken("clay").tier(3).color(0xbfbfbf, 0xcccccc).addDrop(Items.CLAY_BALL).save(consumer);
         chicken("leather").tier(3).color(0x919191, 0xA7A06C).addDrop(Items.LEATHER).save(consumer);
-        chicken("netherwart").tier(3).color(0x331a00, 0x800000).addDrop(Items.NETHER_WART).addBiome(BiomeTags.HAS_NETHER_FORTRESS).save(consumer);
+        chicken("netherwart").tier(3).color(0x331a00, 0x800000).addDrop(Items.NETHER_WART).addBiomes(BiomeTags.HAS_NETHER_FORTRESS).save(consumer);
 
         // Tier 4
         chicken("diamond").tier(4).color(0xe6f2ff, 0x99ccff).addDrop(Items.DIAMOND).save(consumer);

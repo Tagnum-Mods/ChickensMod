@@ -33,6 +33,7 @@
 - Updated Entity registration
 - MenuUtils is not able to do offsets
 - Rename TranslateUtils to TranslationUtils
+- addBiome to addBiomes for biome tags
 
 ### Deprecated
 

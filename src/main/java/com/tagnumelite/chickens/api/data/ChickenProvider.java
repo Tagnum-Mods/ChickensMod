@@ -134,7 +134,8 @@ public abstract class ChickenProvider extends JsonCodecProvider<ChickenData> {
             return this;
         }
 
-        public Builder addBiome(TagKey<Biome> biomeTag) {
+        // TODO: Biomes doesn't get added
+        public Builder addBiomes(TagKey<Biome> biomeTag) {
             ForgeRegistries.BIOMES.tags().getTag(biomeTag).stream().map(Holder::direct).forEach(supportedBiomes::add);
             return this;
         }
