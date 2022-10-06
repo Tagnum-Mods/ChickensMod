@@ -14,6 +14,7 @@
 - Language provider for the English lang
 - Coop to generate drops from spawn eggs
 - Random layTime to ChickenData
+- Special Menu Slots with restrictions
 
 ### Changed
 - Change build to 1.19.2
