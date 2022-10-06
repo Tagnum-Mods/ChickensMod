@@ -11,6 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 public class Utils {
@@ -22,8 +24,14 @@ public class Utils {
         return new ResourceLocation(Chickens.MOD_ID, path);
     }
 
+    public static CompoundTag typeTag(ResourceLocation type) {
+        CompoundTag tag = new CompoundTag();
+        tag.putString(TYPE_NBT, type.toString());
+        return tag;
+    }
+
     public static ResourceLocation getTypeFromTag(@Nullable CompoundTag tag) {
-        if (tag == null) return rl("void");
+        if (tag == null) return rl("void"); // TODO: Replace default
         return new ResourceLocation(tag.getString(TYPE_NBT));
     }
 
@@ -98,4 +106,17 @@ public class Utils {
 
         return copy;
     }
+
+    public static <O> O randChoice(List<O> choices) {
+        return choices.get(RANDOM.nextInt(choices.size() - 1));
+    }
+
+    public static boolean compareRL(@Nullable ResourceLocation rl1, @Nullable ResourceLocation rl2) {
+        if (rl1 == null && rl2 != null) return false;
+        if (rl1 != null && rl2 == null) return false;
+        if (rl1 == null && rl2 == null) return true;
+
+        return rl1.equals(rl2);
+    }
+
 }
