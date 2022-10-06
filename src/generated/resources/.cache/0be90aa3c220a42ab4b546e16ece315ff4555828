@@ -1,6 +1,15 @@
-// 1.19.2	2022-09-27T13:35:43.772256	Item Models: chickens
+// 1.19.2	2022-10-06T15:50:17.3502075	Item Models: chickens
 1d1d832ee9820bc7d128b6ece92846bf1d2541a9 assets/chickens/models/item/analyzer.json
 03a09267f6a6ccb69a5e21666db49abf70e57200 assets/chickens/models/item/colored_egg.json
+4022c0cf43599a5420312b350546cb9cf31b1826 assets/chickens/models/item/coop_acacia.json
+3d01ef805e6346671655f4873d3f2092fbbfe986 assets/chickens/models/item/coop_birch.json
+a15403dcc2b2097933e7337d6410e5e4491000a3 assets/chickens/models/item/coop_crimson.json
+189c32675077e918829bb14ed3b9285da9da6837 assets/chickens/models/item/coop_dark_oak.json
+1f3801a680cd6ee1eacb709feff55aefce0bed84 assets/chickens/models/item/coop_jungle.json
+ccf603dea872ee081436836f0b09519641cf2bd7 assets/chickens/models/item/coop_mangrove.json
+022295d358a2dbcf9296b59017f01193b70bb2cd assets/chickens/models/item/coop_oak.json
+dbccd4a2a511550d49b5f46236c1ec5cc7421dea assets/chickens/models/item/coop_spruce.json
+c7405ab18177d860149b982f83bcb1d824ec2d67 assets/chickens/models/item/coop_warped.json
 c90a2beed352a45beb547e7b4f46ef675ed4f364 assets/chickens/models/item/fluid_egg.json
 6013fa0a08f58dd3227ec1d3d0d8be9353d64a38 assets/chickens/models/item/henhouse_acacia.json
 5dedaa2063b58c68c7f9c70f91d5966e5913bf19 assets/chickens/models/item/henhouse_birch.json

@@ -10,4 +10,5 @@ public class ModMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Chickens.MOD_ID);
 
     public static final RegistryObject<MenuType<HenhouseMenu>> HENHOUSE = MENU_TYPES.register("henhouse", () -> new MenuType<>(HenhouseMenu::getClientMenu));
+    public static final RegistryObject<MenuType<CoopMenu>> COOP = MENU_TYPES.register("coop", () -> new MenuType<>(CoopMenu::new));
 }

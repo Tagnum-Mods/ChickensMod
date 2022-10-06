@@ -1,4 +1,13 @@
-// 1.19.2	2022-09-22T08:48:34.9575097	Block States: chickens
+// 1.19.2	2022-10-04T16:46:26.7098564	Block States: chickens
+24d2326dd51f6ff8aeb62508c7baa15da3ca31d9 assets/chickens/blockstates/coop_acacia.json
+859c3d69e5fdde615a2d00836f298808663b1ea9 assets/chickens/blockstates/coop_birch.json
+16b40c04361bbf4bdc710761c6c45e6121b606fa assets/chickens/blockstates/coop_crimson.json
+9cc97f2fbc6568f6334c85ea8689557f6ab1eb9e assets/chickens/blockstates/coop_dark_oak.json
+85c17d755e3a6bb527cd24f279601c793bc1da2b assets/chickens/blockstates/coop_jungle.json
+94f5e342754cdaca7c3c89b9460fea36216332c7 assets/chickens/blockstates/coop_mangrove.json
+c2fcd728d599e94c7fae446551158b1bca346a66 assets/chickens/blockstates/coop_oak.json
+f0b1ac754618978b389a4e9596b5acbae3ab54e9 assets/chickens/blockstates/coop_spruce.json
+2758e1111ff3fc3d53045c3196d0fcbe69230122 assets/chickens/blockstates/coop_warped.json
 e9c939b8b496c683597274c44c83afedbb3153cb assets/chickens/blockstates/henhouse_acacia.json
 40b9f4f59257a34ab81339eb74125afa7ab44919 assets/chickens/blockstates/henhouse_birch.json
 2f96d18a4eabd60cb701add4877cbfe2c1be2d2d assets/chickens/blockstates/henhouse_crimson.json
@@ -8,6 +17,15 @@ cfcf77a6a34add2c56d97b8f9104efe8d800ceaf assets/chickens/blockstates/henhouse_ma
 1691cb91bac62e894930ee74b353825a6879372b assets/chickens/blockstates/henhouse_oak.json
 d4effd681e9e8e34b9e4e3d91d1c7c399e9c7092 assets/chickens/blockstates/henhouse_spruce.json
 27c4c9345d0c14ad078ef55129ec15eb3636274f assets/chickens/blockstates/henhouse_warped.json
+06beb79478309dd8ef47f3bb5055107d486acfc3 assets/chickens/models/block/coop_acacia.json
+71ee07cb022dbba2b4428971fa62bed9ac8d137f assets/chickens/models/block/coop_birch.json
+d64c4cc9f961cf9d5b6e7136d1a25c9e95cdb8ec assets/chickens/models/block/coop_crimson.json
+38040b8a58228cab2e0bb0e46a0113ac0461f083 assets/chickens/models/block/coop_dark_oak.json
+55286a1985284df4d939582f00dacb5cc0094a3e assets/chickens/models/block/coop_jungle.json
+85539e5c4416abf30ceb4ff33fcdfcf98a4b2628 assets/chickens/models/block/coop_mangrove.json
+32355cb6e333c2b8f3612a3e689d6b417aee1552 assets/chickens/models/block/coop_oak.json
+667f1553f9daa1816324ff78ff126bf6b96e62f3 assets/chickens/models/block/coop_spruce.json
+09122c0f306138435a53fe0d0c74afb93da8afb3 assets/chickens/models/block/coop_warped.json
 2e6cd4870285f7de911a7e2d6da469fa285bb1a3 assets/chickens/models/block/henhouse_acacia.json
 8961490903e8668aed99160529067004a7e48f6c assets/chickens/models/block/henhouse_birch.json
 184a0679f5cc6fe9206ba3f599e3cac8e2cbf73e assets/chickens/models/block/henhouse_crimson.json

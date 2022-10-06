@@ -1,0 +1,6 @@
+{
+  "parent": "chickens:block/coop",
+  "textures": {
+    "planks": "minecraft:block/warped_planks"
+  }
+}

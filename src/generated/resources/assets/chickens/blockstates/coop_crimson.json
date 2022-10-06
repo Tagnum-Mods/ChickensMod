@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "chickens:block/coop_crimson",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "chickens:block/coop_crimson"
+    },
+    "facing=south": {
+      "model": "chickens:block/coop_crimson",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "chickens:block/coop_crimson",
+      "y": 270
+    }
+  }
+}

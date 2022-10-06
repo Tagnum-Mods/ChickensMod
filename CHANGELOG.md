@@ -12,6 +12,7 @@
 - Add DataGen for vanilla eggs
 - Recipe Provider for standard and breeding recipes
 - Language provider for the English lang
+- Coop to generate drops from spawn eggs
 
 ### Changed
 - Change build to 1.19.2

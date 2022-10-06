@@ -1,9 +1,10 @@
 package com.tagnumelite.chickens;
 
 import com.mojang.logging.LogUtils;
-import com.tagnumelite.chickens.api.chicken.ChickenData;
 import com.tagnumelite.chickens.client.menus.ModMenuTypes;
 import com.tagnumelite.chickens.client.renderers.ChickensChickenRenderer;
+import com.tagnumelite.chickens.client.renderers.CoopBlockRenderer;
+import com.tagnumelite.chickens.client.screens.CoopScreen;
 import com.tagnumelite.chickens.client.screens.HenhouseScreen;
 import com.tagnumelite.chickens.common.ChickenManager;
 import com.tagnumelite.chickens.common.FluidEggManager;
@@ -16,15 +17,17 @@ import com.tagnumelite.chickens.config.ClientConfig;
 import com.tagnumelite.chickens.config.ServerConfig;
 import com.tagnumelite.chickens.crafting.ModRecipeSerializers;
 import com.tagnumelite.chickens.crafting.ModRecipeTypes;
-import com.tagnumelite.chickens.integration.top.TOPPlugin;
+import com.tagnumelite.chickens.integration.top.ChickensTOPPlugin;
+import com.tagnumelite.chickens.network.ModNetwork;
 import com.tagnumelite.chickens.proxy.ClientProxy;
 import com.tagnumelite.chickens.proxy.CommonProxy;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.entity.ChickenRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
@@ -40,8 +43,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
-
-import java.util.Map;
 
 /**
  * Created by setyc on 12.02.2016.
@@ -78,6 +79,9 @@ public class Chickens {
             event.addListener(CHICKEN_MANAGER);
             event.addListener(FLUID_EGG_MANAGER);
         });
+        MinecraftForge.EVENT_BUS.addListener((InterModEnqueueEvent event) -> {
+            InterModComms.sendTo("theoneprobe", "getTheOneProbe", ChickensTOPPlugin::new);
+        });
     }
 
     public static ChickenManager getChickenManager() {
@@ -89,9 +93,9 @@ public class Chickens {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        LOGGER.debug("Enabled chickens: {}", CHICKEN_MANAGER.getChickens());
-        dumpChickens(CHICKEN_MANAGER.getChickens());
-
+        event.enqueueWork(() -> {
+            ModNetwork.register();
+        });
         // TODO: Biome Spawning
         /*
         List<Biome> biomesForSpawning = getAllSpawnBiomes();
@@ -110,9 +114,12 @@ public class Chickens {
 
     private void onClientSetup(FMLClientSetupEvent event) {
         MenuScreens.register(ModMenuTypes.HENHOUSE.get(), HenhouseScreen::new);
+        MenuScreens.register(ModMenuTypes.COOP.get(), CoopScreen::new);
 
         EntityRenderers.register(ModEntityTypes.COLORED_EGG.get(), ThrownItemRenderer::new);
         EntityRenderers.register(ModEntityTypes.CHICKEN.get(), ChickensChickenRenderer::new);
+
+        BlockEntityRenderers.register(ModBlockEntityTypes.COOP.get(), CoopBlockRenderer::new);
     }
 
     private void onRegisterItemColorHandlers(RegisterColorHandlersEvent.Item event) {
@@ -121,45 +128,5 @@ public class Chickens {
 
     private void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(ModEntityTypes.CHICKEN.get(), ChickensChicken.createAttributes().build());
-    }
-
-    // OLLD
-
-    private void dumpChickens(Map<ResourceLocation, ChickenData> items) {
-        /* TODO: THIS
-        try {
-            FileWriter file = new FileWriter("logs/chickens.gml");
-            file.write("graph [\n");
-            file.write("\tdirected 1\n");
-            for (Map.Entry<ResourceLocation, ChickenData> item : items.entrySet()) {
-                file.write("\tnode [\n");
-                file.write("\t\tid " + item.getId() + "\n");
-                file.write("\t\tlabel \"" + item.getEntityName() + "\"\n");
-                if (requiresVisitingNether(item)) {
-                    file.write("\t\tgraphics [\n");
-                    file.write("\t\t\tfill \"#FF6600\"\n");
-                    file.write("\t\t]\n");
-                }
-                file.write("\t]\n");
-            }
-            for (Map.Entry<ResourceLocation, ChickenData> item : items.entrySet()) {
-                if (item.getParent1() != null) {
-                    file.write("\tedge [\n");
-                    file.write("\t\tsource " + item.getParent1().getId() + "\n");
-                    file.write("\t\ttarget " + item.getId() + "\n");
-                    file.write("\t]\n");
-                }
-                if (item.getParent2() != null) {
-                    file.write("\tedge [\n");
-                    file.write("\t\tsource " + item.getParent2().getId() + "\n");
-                    file.write("\t\ttarget " + item.getId() + "\n");
-                    file.write("\t]\n");
-                }
-            }
-            file.write("]\n");
-            file.close();
-        } catch (IOException ignored) {
-        }
-         */
     }
 }

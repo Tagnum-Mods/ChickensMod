@@ -21,15 +21,15 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.FLUID_EGG.get()).texture("layer1", "item/fluid_egg_overlay");
         basicItem(ModItems.COLORED_EGG.get());
 
-        sameBlock(ModBlocks.ROOST_ACACIA.get());
-        sameBlock(ModBlocks.ROOST_BIRCH.get());
-        sameBlock(ModBlocks.ROOST_CRIMSON.get());
-        sameBlock(ModBlocks.ROOST_DARK_OAK.get());
-        sameBlock(ModBlocks.ROOST_JUNGLE.get());
-        sameBlock(ModBlocks.ROOST_MANGROVE.get());
-        sameBlock(ModBlocks.ROOST_OAK.get());
-        sameBlock(ModBlocks.ROOST_SPRUCE.get());
-        sameBlock(ModBlocks.ROOST_WARPED.get());
+        sameBlock(ModBlocks.COOP_ACACIA.get());
+        sameBlock(ModBlocks.COOP_BIRCH.get());
+        sameBlock(ModBlocks.COOP_CRIMSON.get());
+        sameBlock(ModBlocks.COOP_DARK_OAK.get());
+        sameBlock(ModBlocks.COOP_JUNGLE.get());
+        sameBlock(ModBlocks.COOP_MANGROVE.get());
+        sameBlock(ModBlocks.COOP_OAK.get());
+        sameBlock(ModBlocks.COOP_SPRUCE.get());
+        sameBlock(ModBlocks.COOP_WARPED.get());
 
         sameBlock(ModBlocks.HENHOUSE_ACACIA.get());
         sameBlock(ModBlocks.HENHOUSE_BIRCH.get());

@@ -19,6 +19,16 @@ import java.util.function.Supplier;
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Chickens.MOD_ID);
 
+    public static final RegistryObject<CoopBlock> COOP_ACACIA = register("coop_acacia", () -> new CoopBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<CoopBlock> COOP_BIRCH = register("coop_birch", () -> new CoopBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<CoopBlock> COOP_CRIMSON = register("coop_crimson", () -> new CoopBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<CoopBlock> COOP_DARK_OAK = register("coop_dark_oak", () -> new CoopBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<CoopBlock> COOP_JUNGLE = register("coop_jungle", () -> new CoopBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<CoopBlock> COOP_MANGROVE = register("coop_mangrove", () -> new CoopBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<CoopBlock> COOP_OAK = register("coop_oak", () -> new CoopBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<CoopBlock> COOP_SPRUCE = register("coop_spruce", () -> new CoopBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<CoopBlock> COOP_WARPED = register("coop_warped", () -> new CoopBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
     // Henhouses
     public static final RegistryObject<HenhouseBlock> HENHOUSE_ACACIA = registerHenhouse("henhouse_acacia", BlockBehaviour.Properties.of(Material.WOOD));
     public static final RegistryObject<HenhouseBlock> HENHOUSE_BIRCH = registerHenhouse("henhouse_birch", BlockBehaviour.Properties.of(Material.WOOD));

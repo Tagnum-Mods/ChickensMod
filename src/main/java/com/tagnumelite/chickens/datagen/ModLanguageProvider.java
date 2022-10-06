@@ -100,6 +100,16 @@ public class ModLanguageProvider extends LanguageProvider {
     }
 
     private void addBlocks() {
+        add(ModBlocks.COOP_ACACIA.get(), "Acacia Coop");
+        add(ModBlocks.COOP_BIRCH.get(), "Birch Coop");
+        add(ModBlocks.COOP_CRIMSON.get(), "Crimson Coop");
+        add(ModBlocks.COOP_DARK_OAK.get(), "Dark Oak Coop");
+        add(ModBlocks.COOP_JUNGLE.get(), "Jungle Coop");
+        add(ModBlocks.COOP_MANGROVE.get(), "Mangrove Coop");
+        add(ModBlocks.COOP_OAK.get(), "Oak Coop");
+        add(ModBlocks.COOP_SPRUCE.get(), "Spruce Coop");
+        add(ModBlocks.COOP_WARPED.get(), "Warped Coop");
+
         add(ModBlocks.HENHOUSE_ACACIA.get(), "Acacia Henhouse");
         add(ModBlocks.HENHOUSE_BIRCH.get(), "Birch Henhouse");
         add(ModBlocks.HENHOUSE_CRIMSON.get(), "Crimson Henhouse");
@@ -113,6 +123,7 @@ public class ModLanguageProvider extends LanguageProvider {
 
     private void addItems() {
         add(ModItems.ANALYZER.get(), "Chicken Analyzer");
+        add(ModItems.SPAWN_EGG.get(), "~~~~~~ Spawn Egg");
 
         add("item.chickens.fluid_egg.", "");
     }
