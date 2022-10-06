@@ -1,7 +1,7 @@
 package com.tagnumelite.chickens.datagen;
 
 import com.tagnumelite.chickens.Chickens;
-import com.tagnumelite.chickens.api.utils.TranslateUtils;
+import com.tagnumelite.chickens.api.utils.TranslationUtils;
 import com.tagnumelite.chickens.api.utils.constants.TranslationConstants;
 import com.tagnumelite.chickens.client.ModTabs;
 import com.tagnumelite.chickens.common.blocks.ModBlocks;
@@ -131,8 +131,10 @@ public class ModLanguageProvider extends LanguageProvider {
     private void addGUIs() {
         add(TranslationConstants.ANALYZER_TOOLTIP_1, "Use it on chickens to determine their stats.");
         add(TranslationConstants.ANALYZER_TOOLTIP_2, " - \"Which day of the week do chickens hate most? Fry-day!\"");
+        add(TranslationConstants.NAME, "Name: ");
 
-        add(TranslateUtils.GUI_CONTAINER(TranslationConstants.HENHOUSE_TOOLTIP), "It will automatically collect items from chickens in 9x9x9 radius when provided with hay bale.");
+        add(TranslationUtils.GUI_CONTAINER(TranslationConstants.HENHOUSE_TOOLTIP), "It will automatically collect items from chickens in 9x9x9 radius when provided with hay bale.");
+        add(TranslationUtils.GUI_CONTAINER("coop"), "Coop");
 
         add(TranslationConstants.CHICKEN_LAY_PROGRESS, "Next egg in ~%1$smin.");
         add(TranslationConstants.CHICKEN_NEXT_EGG_SOON, "Next egg in <1min.");
@@ -140,10 +142,16 @@ public class ModLanguageProvider extends LanguageProvider {
         add(TranslationConstants.CHICKEN_STATS_GROWTH, "Growth: %1$s");
         add(TranslationConstants.CHICKEN_STATS_GAIN, "Gain: %1$s");
         add(TranslationConstants.CHICKEN_STATS_STRENGTH, "Strength: %1$s");
+        add(TranslationConstants.NULL_CHICKEN, "Null Chicken - Doesn't Exist");
+
+        add(TranslationUtils.GUI(TranslationConstants.JEI_THROWING), "Egg Throwing");
+        add(TranslationUtils.GUI(TranslationConstants.JEI_BREEDING), "Chicken Breeding");
+        add(TranslationUtils.GUI(TranslationConstants.JEI_LAYING), "Chicken Laying");
     }
 
     private void addJade() {
-        add("config.jade.plugin_chickens.chicken_provider", "Chicken");
+        add("config.jade.plugin_chickens.chicken_provider", "Chicken"); // TODO: Untested
+        add("config.jade.plugin_chickens.coop", "Coop");
     }
 
     private void addPatchouli() {

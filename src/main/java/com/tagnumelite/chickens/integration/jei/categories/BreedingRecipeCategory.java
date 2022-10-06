@@ -3,7 +3,7 @@ package com.tagnumelite.chickens.integration.jei.categories;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.tagnumelite.chickens.Chickens;
 import com.tagnumelite.chickens.api.recipe.IBreedingRecipe;
-import com.tagnumelite.chickens.api.utils.TranslateUtils;
+import com.tagnumelite.chickens.api.utils.TranslationUtils;
 import com.tagnumelite.chickens.api.utils.constants.TranslationConstants;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class BreedingRecipeCategory implements IRecipeCategory<IBreedingRecipe> {
     public static final RecipeType<IBreedingRecipe> RECIPE_TYPE = RecipeType.create(Chickens.MOD_ID, "breeding", IBreedingRecipe.class);
-    public static final Component TITLE = TranslateUtils.CGUI(TranslationConstants.JEI_BREEDING);
+    public static final Component TITLE = TranslationUtils.CGUI(TranslationConstants.JEI_BREEDING);
     private final IDrawableStatic background;
     private final IDrawableAnimated arrow;
     private final IDrawableStatic icon;

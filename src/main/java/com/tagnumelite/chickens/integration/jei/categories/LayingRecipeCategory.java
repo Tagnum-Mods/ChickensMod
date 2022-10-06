@@ -3,7 +3,7 @@ package com.tagnumelite.chickens.integration.jei.categories;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.tagnumelite.chickens.Chickens;
 import com.tagnumelite.chickens.api.chicken.ChickenHolder;
-import com.tagnumelite.chickens.api.utils.TranslateUtils;
+import com.tagnumelite.chickens.api.utils.TranslationUtils;
 import com.tagnumelite.chickens.api.utils.constants.TranslationConstants;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
  * Created by setyc on 21.02.2016.
  */
 public class LayingRecipeCategory implements IRecipeCategory<ChickenHolder> {
-    public static final Component TITLE = TranslateUtils.CGUI(TranslationConstants.JEI_LAYING);
+    public static final Component TITLE = TranslationUtils.CGUI(TranslationConstants.JEI_LAYING);
     public static final RecipeType<ChickenHolder> RECIPE_TYPE = RecipeType.create(Chickens.MOD_ID, "laying", ChickenHolder.class);
     private final IDrawableStatic background;
     private final IDrawableAnimated arrow;

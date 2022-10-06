@@ -1,6 +1,6 @@
 package com.tagnumelite.chickens.common.blocks;
 
-import com.tagnumelite.chickens.api.utils.TranslateUtils;
+import com.tagnumelite.chickens.api.utils.TranslationUtils;
 import com.tagnumelite.chickens.api.utils.constants.TranslationConstants;
 import com.tagnumelite.chickens.client.menus.HenhouseMenu;
 import com.tagnumelite.chickens.common.blocks.entities.HenhouseBlockEntity;
@@ -8,20 +8,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -30,6 +25,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -38,7 +34,7 @@ import java.util.List;
  */
 public class HenhouseBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    static final Component CONTAINER_TITLE = TranslateUtils.CGUI_CONTAINER("henhouse");
+    static final Component CONTAINER_TITLE = TranslationUtils.CGUI_CONTAINER("henhouse");
 
     public HenhouseBlock(Properties blockProperties) {
         super(blockProperties);
@@ -77,40 +73,46 @@ public class HenhouseBlock extends BaseEntityBlock {
     }
 
     @Override
-    public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
+    public MenuProvider getMenuProvider(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
         return new SimpleMenuProvider((index, playerInventory, player) -> HenhouseMenu.getClientMenu(index, playerInventory), CONTAINER_TITLE);
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-        pTooltip.add(TranslateUtils.CGUI_CONTAINER(TranslationConstants.HENHOUSE_TOOLTIP));
+    public void appendHoverText(@NotNull ItemStack stack, BlockGetter level, @NotNull List<Component> tooltips, @NotNull TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, level, tooltips, tooltipFlag);
+        tooltips.add(TranslationUtils.CGUI_CONTAINER(TranslationConstants.HENHOUSE_TOOLTIP));
     }
 
     @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new HenhouseBlockEntity(pPos, pState);
+    public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
+        return ModBlockEntityTypes.HENHOUSE.get().create(blockPos, blockState);
+    }
+
+    @Override
+    public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving) {
+        if (state.getBlock() != newState.getBlock()) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof HenhouseBlockEntity henhouse) { // TODO: container
+                Containers.dropContents(level, pos, new SimpleContainer());
+            }
+        }
+
+        super.onRemove(state, level, pos, newState, isMoving);
+    }
+
+    @Override
+    public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+    }
+
+    @Override
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
+        return RenderShape.MODEL;
     }
 
     // OLD
 
     /*
-    @Override
-    public void breakBlock(Level level, BlockPos pos, IBlockState state) {
-        BlockEntity tileEntity = level.getTileEntity(pos);
-        if (tileEntity instanceof HenhouseBlockEntity) {
-            InventoryHelper.dropInventoryItems(level, pos, (HenhouseBlockEntity) tileEntity);
-        }
-
-        super.breakBlock(level, pos, state);
-    }
-
-    @Override
-    @Deprecated
-    public IBlockState onBlockPlaced(Level worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-    }
-
     @Override
     public void onBlockPlacedBy(Level worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
@@ -122,11 +124,5 @@ public class HenhouseBlock extends BaseEntityBlock {
             }
         }
     }
-
-    @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
-
      */
 }

@@ -1,7 +1,7 @@
 package com.tagnumelite.chickens.common.items;
 
 import com.tagnumelite.chickens.Chickens;
-import com.tagnumelite.chickens.api.utils.TranslateUtils;
+import com.tagnumelite.chickens.api.utils.TranslationUtils;
 import com.tagnumelite.chickens.api.utils.Utils;
 import com.tagnumelite.chickens.common.entities.ThrownColoredEgg;
 import net.minecraft.client.color.item.ItemColor;
@@ -35,7 +35,7 @@ public class ColoredEggItem extends EggItem implements ItemColor {
     @Override
     public void appendHoverText(@NotNull ItemStack item, @Nullable Level level, @NotNull List<Component> components, @NotNull TooltipFlag isAdvanced) {
         super.appendHoverText(item, level, components, isAdvanced);
-        components.add(TranslateUtils.CGUI("colored_egg.tooltip"));
+        components.add(TranslationUtils.CGUI("colored_egg.tooltip"));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.tagnumelite.chickens.common.blocks.entities;
 
-import com.tagnumelite.chickens.api.utils.TranslateUtils;
+import com.tagnumelite.chickens.api.utils.TranslationUtils;
 import com.tagnumelite.chickens.client.menus.ModMenuTypes;
 import com.tagnumelite.chickens.common.blocks.ModBlockEntityTypes;
 import net.minecraft.core.BlockPos;
@@ -135,7 +135,7 @@ public class HenhouseBlockEntity extends BaseContainerBlockEntity implements Wor
 
     @Override
     protected @NotNull Component getDefaultName() {
-        return TranslateUtils.CGUI_CONTAINER("henhouse");
+        return TranslationUtils.CGUI_CONTAINER("henhouse");
     }
 
     @Override

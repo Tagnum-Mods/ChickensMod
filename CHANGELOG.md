@@ -31,6 +31,7 @@
 - Updated LiquidEggFluidWrapper to FluidEggWrapper
 - Updated Entity registration
 - MenuUtils is not able to do offsets
+- Rename TranslateUtils to TranslationUtils
 
 ### Deprecated
 
