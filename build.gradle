@@ -178,7 +178,8 @@ if (System.getenv().CURSEFORGE_API_KEY != null) {
             releaseType = "${release_type}"
 
             relations {
-                optionalDependency 'waila'
+                optionalDependency 'jade'
+                optionalDependency 'top'
                 optionalDependency 'just-enough-items-jei'
             }
         }
