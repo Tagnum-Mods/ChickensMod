@@ -2,7 +2,9 @@ package com.tagnumelite.chickens.api.chicken;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.tagnumelite.chickens.config.ServerConfig;
 import net.minecraft.core.HolderSet;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 
@@ -32,5 +34,9 @@ public record ChickenData(int tier, int primaryColor, int secondaryColor, Holder
 
     public ChickenData(int tier, int primaryColor, int secondaryColor, HolderSet.Direct<Biome> biomes, List<ItemStack> drops) {
         this(tier, primaryColor, secondaryColor, biomes, drops, MIN_LAY_TIME, MAX_LAY_TIME);
+    }
+
+    public int getRandomLayTime(RandomSource random) {
+        return ServerConfig.DEBUG_DROPS.get() ? 5 * 20 : Math.max(random.nextInt(maxLayTime()) + minLayTime(), 20); // Minimum time of 20 ticks
     }
 }
