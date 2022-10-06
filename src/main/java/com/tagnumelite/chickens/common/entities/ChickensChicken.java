@@ -2,11 +2,17 @@ package com.tagnumelite.chickens.common.entities;
 
 import com.tagnumelite.chickens.Chickens;
 import com.tagnumelite.chickens.api.chicken.ChickenData;
+import com.tagnumelite.chickens.api.chicken.ChickenHolder;
 import com.tagnumelite.chickens.api.recipe.IBreedingRecipe;
+import com.tagnumelite.chickens.api.utils.TranslationUtils;
 import com.tagnumelite.chickens.api.utils.Utils;
 import com.tagnumelite.chickens.common.items.ModItems;
 import com.tagnumelite.chickens.config.ServerConfig;
 import com.tagnumelite.chickens.crafting.ModRecipeTypes;
+import mcjty.theoneprobe.api.IProbeHitEntityData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.IProbeInfoEntityAccessor;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -18,19 +24,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.Tuple;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -44,7 +46,7 @@ import java.util.List;
 /**
  * Created by setyc on 12.02.2016.
  */
-public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnData {
+public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnData, IProbeInfoEntityAccessor {
     public static final EntityDataAccessor<String> CHICKEN_TYPE = SynchedEntityData.defineId(ChickensChicken.class, EntityDataSerializers.STRING);
     public static final EntityDataAccessor<Boolean> CHICKEN_STATS_ANALYZED = SynchedEntityData.defineId(ChickensChicken.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> CHICKEN_GROWTH = SynchedEntityData.defineId(ChickensChicken.class, EntityDataSerializers.INT);
@@ -52,11 +54,12 @@ public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnDa
     public static final EntityDataAccessor<Integer> CHICKEN_STRENGTH = SynchedEntityData.defineId(ChickensChicken.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> LAY_PROGRESS = SynchedEntityData.defineId(ChickensChicken.class, EntityDataSerializers.INT);
 
-    private static final String TYPE_NBT = "Type";
-    private static final String CHICKEN_STATS_ANALYZED_NBT = "Analyzed";
-    private static final String CHICKEN_GROWTH_NBT = "Growth";
-    private static final String CHICKEN_GAIN_NBT = "Gain";
-    private static final String CHICKEN_STRENGTH_NBT = "Strength";
+    public static final String TYPE_NBT = "Type";
+    public static final String CHICKEN_STATS_ANALYZED_NBT = "Analyzed";
+    public static final String CHICKEN_GROWTH_NBT = "Growth";
+    public static final String CHICKEN_GAIN_NBT = "Gain";
+    public static final String CHICKEN_STRENGTH_NBT = "Strength";
+    private int totalEggTime;
 
     public ChickensChicken(Level level) {
         this(ModEntityTypes.CHICKEN.get(), level);
@@ -67,6 +70,32 @@ public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnDa
     }
 
     // Stats
+
+    private static void inheritStats(ChickensChicken offspring, ChickensChicken parent) {
+        offspring.setGrowth(parent.getGrowth());
+        offspring.setGain(parent.getGain());
+        offspring.setStrength(parent.getStrength());
+    }
+
+    private static void increaseStats(ChickensChicken offspring, ChickensChicken parent1, ChickensChicken parent2, RandomSource rand) {
+        int parent1Strength = parent1.getStrength();
+        int parent2Strength = parent2.getStrength();
+        offspring.setGrowth(calculateNewStat(parent1Strength, parent2Strength, parent1.getGrowth(), parent2.getGrowth(), rand));
+        offspring.setGain(calculateNewStat(parent1Strength, parent2Strength, parent2.getGain(), parent2.getGain(), rand));
+        offspring.setStrength(calculateNewStat(parent1Strength, parent2Strength, parent1Strength, parent2Strength, rand));
+    }
+
+    private static int calculateNewStat(int thisStrength, int mateStrength, int stat1, int stat2, RandomSource rand) {
+        int mutation = rand.nextInt(2) + 1;
+        int newStatValue = (stat1 * thisStrength + stat2 * mateStrength) / (thisStrength + mateStrength) + mutation;
+        if (newStatValue <= 1) return 1;
+        return Math.min(newStatValue, 10);
+    }
+
+    public static boolean canSpawn(EntityType<ChickensChicken> entityType, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos blockPos, RandomSource random) {
+        return checkAnimalSpawnRules(entityType, level, spawnType, blockPos, random);
+        //return true;
+    }
 
     @Override
     protected void defineSynchedData() {
@@ -111,9 +140,13 @@ public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnDa
         entityData.set(CHICKEN_STRENGTH, strength);
     }
 
+    // Other
+
     public ResourceLocation getChickenType() {
         return new ResourceLocation(entityData.get(CHICKEN_TYPE));
     }
+
+    // Spawning & Offspring
 
     public void setChickenType(ResourceLocation type) {
         entityData.set(CHICKEN_TYPE, type.toString());
@@ -129,38 +162,13 @@ public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnDa
         return getChickenData().tier();
     }
 
-    // Other
-
     @Override
     public @NotNull Component getName() {
         if (this.hasCustomName()) {
             return super.getName();
         }
 
-        return Component.translatable("entity." + getChickenType().toLanguageKey() + ".name");
-    }
-
-    // Spawning & Offspring
-
-    private static void inheritStats(ChickensChicken offspring, ChickensChicken parent) {
-        offspring.setGrowth(parent.getGrowth());
-        offspring.setGain(parent.getGain());
-        offspring.setStrength(parent.getStrength());
-    }
-
-    private static void increaseStats(ChickensChicken offspring, ChickensChicken parent1, ChickensChicken parent2, RandomSource rand) {
-        int parent1Strength = parent1.getStrength();
-        int parent2Strength = parent2.getStrength();
-        offspring.setGrowth(calculateNewStat(parent1Strength, parent2Strength, parent1.getGrowth(), parent2.getGrowth(), rand));
-        offspring.setGain(calculateNewStat(parent1Strength, parent2Strength, parent2.getGain(), parent2.getGain(), rand));
-        offspring.setStrength(calculateNewStat(parent1Strength, parent2Strength, parent1Strength, parent2Strength, rand));
-    }
-
-    private static int calculateNewStat(int thisStrength, int mateStrength, int stat1, int stat2, RandomSource rand) {
-        int mutation = rand.nextInt(2) + 1;
-        int newStatValue = (stat1 * thisStrength + stat2 * mateStrength) / (thisStrength + mateStrength) + mutation;
-        if (newStatValue <= 1) return 1;
-        return Math.min(newStatValue, 10);
+        return TranslationUtils.CHICKEN_NAME(getChickenType());
     }
 
     @Override
@@ -250,6 +258,7 @@ public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnDa
 
     private void setTimeUntilNextEgg(int value) {
         eggTime = value;
+        totalEggTime = value;
         updateLayProgress();
     }
 
@@ -262,20 +271,7 @@ public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnDa
     }
 
     private void resetTimeUntilNextEgg() {
-        ChickenData chickenData = getChickenData();
-        int newEggTime = random.nextInt(chickenData.maxLayTime()) + chickenData.minLayTime();
-        if (ServerConfig.DEBUG_DROPS.get())
-            setTimeUntilNextEgg(20 * 5);
-        else
-            setTimeUntilNextEgg(Math.max(newEggTime, 20)); // Minimum of 20
-    }
-
-    @Override
-    public boolean checkSpawnRules(@NotNull LevelAccessor pLevel, @NotNull MobSpawnType pSpawnReason) {
-        //boolean anyInNether = ChickensRegistry.isAnyIn(SpawnType.HELL); TODO
-        //boolean anyInOverworld = ChickensRegistry.isAnyIn(SpawnType.NORMAL) || ChickensRegistry.isAnyIn(SpawnType.SNOW);
-        //Holder<Biome> biome = level.getBiome(getOnPos());
-        return super.checkSpawnRules(pLevel, pSpawnReason);// || anyInNether && biome.is(BiomeTags.IS_NETHER) || anyInOverworld && super.checkSpawnRules(pLevel, pSpawnReason);
+        setTimeUntilNextEgg(getChickenData().getRandomLayTime(random));
     }
 
     @Override
@@ -292,17 +288,20 @@ public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnDa
             if (pReason.equals(MobSpawnType.SPAWNER)) {
                 setChickenType(Utils.getTypeFromTag(pDataTag));
                 // TODO: This
-            } else if (!pReason.equals(MobSpawnType.SPAWN_EGG)) {
-                List<Tuple<ResourceLocation, ChickenData>> possibleChickens = Chickens.getChickenManager().getChickensForBiome(pLevel.getBiome(blockPosition()));
+            } else if (pReason.equals(MobSpawnType.SPAWN_EGG)) {
+                setChickenType(Utils.getTypeFromTag(pDataTag));
+            } else {
+                List<ChickenHolder> possibleChickens = Chickens.getChickenManager().getChickensForBiome(pLevel.getBiome(blockPosition()));
                 if (possibleChickens.size() > 0) {
-                    Tuple<ResourceLocation, ChickenData> chickenToSpawn = possibleChickens.get(random.nextInt(possibleChickens.size()));
+                    ChickenHolder chickenToSpawn = possibleChickens.get(random.nextInt(possibleChickens.size()));
 
-                    ResourceLocation chickenId = chickenToSpawn.getA();
+                    ResourceLocation chickenId = chickenToSpawn.id();
                     setChickenType(chickenId);
                     livingData = new GroupData(chickenId);
+                } else {
+                    Chickens.LOGGER.error("");
+                    this.remove(RemovalReason.DISCARDED);
                 }
-            } else {
-                setChickenType(Utils.getTypeFromTag(pDataTag));
             }
         }
 
@@ -352,12 +351,6 @@ public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnDa
     }
 
     @Override
-    protected @NotNull ResourceLocation getDefaultLootTable() {
-        //return null;
-        return super.getDefaultLootTable();
-    }
-
-    @Override
     protected void dropCustomDeathLoot(@NotNull DamageSource damageSource, int lootingModifier, boolean recentlyHit) {
         for (ItemStack itemToDrop : getChickenData().drops()) {
             int count = 1 + random.nextInt(1 + lootingModifier);
@@ -391,24 +384,31 @@ public class ChickensChicken extends Chicken implements IEntityAdditionalSpawnDa
 
     @Override
     public void writeSpawnData(FriendlyByteBuf buffer) {
-        Chickens.LOGGER.error("Write Spawn Data");
         buffer.writeUtf(entityData.get(CHICKEN_TYPE));
-        //buffer.writeBoolean(entityData.get(CHICKEN_STATS_ANALYZED));
-        //buffer.writeInt(entityData.get(CHICKEN_GROWTH));
-        //buffer.writeInt(entityData.get(CHICKEN_GAIN));
-        //buffer.writeInt(entityData.get(CHICKEN_STRENGTH));
-        //buffer.writeInt(entityData.get(LAY_PROGRESS));
+        buffer.writeBoolean(entityData.get(CHICKEN_STATS_ANALYZED));
+        buffer.writeInt(entityData.get(CHICKEN_GROWTH));
+        buffer.writeInt(entityData.get(CHICKEN_GAIN));
+        buffer.writeInt(entityData.get(CHICKEN_STRENGTH));
+        buffer.writeInt(entityData.get(LAY_PROGRESS));
     }
 
     @Override
     public void readSpawnData(FriendlyByteBuf buffer) {
-        Chickens.LOGGER.error("Read Spawn Data");
         entityData.set(CHICKEN_TYPE, buffer.readUtf());
-        //entityData.set(CHICKEN_STATS_ANALYZED, buffer.readBoolean());
-        //entityData.set(CHICKEN_GROWTH, buffer.readInt());
-        //entityData.set(CHICKEN_GAIN, buffer.readInt());
-        //entityData.set(CHICKEN_STRENGTH, buffer.readInt());
-        //entityData.set(LAY_PROGRESS, buffer.readInt());
+        entityData.set(CHICKEN_STATS_ANALYZED, buffer.readBoolean());
+        entityData.set(CHICKEN_GROWTH, buffer.readInt());
+        entityData.set(CHICKEN_GAIN, buffer.readInt());
+        entityData.set(CHICKEN_STRENGTH, buffer.readInt());
+        entityData.set(LAY_PROGRESS, buffer.readInt());
+    }
+
+    @Override
+    public void addProbeInfo(ProbeMode probeMode, IProbeInfo probeInfo, Player player, Level level, Entity entity, IProbeHitEntityData iProbeHitEntityData) {
+        probeInfo.text("Tier: " + getTier());
+        probeInfo.horizontal().progress(eggTime, totalEggTime);
+        probeInfo.text("Gain: " + getGain());
+        probeInfo.text("Growth: " + getGrowth());
+        probeInfo.text("Strength: " + getStrength());
     }
 
     private record GroupData(ResourceLocation chickenID) implements SpawnGroupData {

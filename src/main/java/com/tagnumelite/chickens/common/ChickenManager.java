@@ -7,11 +7,11 @@ import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
 import com.tagnumelite.chickens.Chickens;
 import com.tagnumelite.chickens.api.chicken.ChickenData;
+import com.tagnumelite.chickens.api.chicken.ChickenHolder;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
-import net.minecraft.util.Tuple;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
@@ -50,9 +50,9 @@ public class ChickenManager extends SimpleJsonResourceReloadListener {
         return chickens.getOrDefault(name, ChickenData.EMPTY);
     }
 
-    public List<Tuple<ResourceLocation, ChickenData>> getChickensForBiome(Holder<Biome> biome) {
+    public List<ChickenHolder> getChickensForBiome(Holder<Biome> biome) {
         // TODO: THIS
         //getChickens().entrySet().stream().filter(entry -> {biome.is})
-        return getChickens().entrySet().stream().map(entry -> new Tuple<>(entry.getKey(), entry.getValue())).toList();
+        return getChickens().entrySet().stream().map(entry -> new ChickenHolder(entry.getKey(), entry.getValue())).toList();
     }
 }

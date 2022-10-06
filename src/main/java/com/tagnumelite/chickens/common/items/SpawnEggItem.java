@@ -10,7 +10,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -41,10 +40,10 @@ import java.util.Objects;
 /**
  * Created by setyc on 12.02.2016.
  */
-public class SpawnEggItem extends Item implements ItemColor {
-    private static final DispenseItemBehavior DEFAULT_DISPENSE_BEHAVIOR = ((pSource, pStack) -> {
+public class SpawnEggItem extends Item implements ItemColor { // TODO: Replace with ChickenItem and implement separate textures
+    public static final DispenseItemBehavior DEFAULT_DISPENSE_BEHAVIOR = ((pSource, pStack) -> {
         Direction face = pSource.getBlockState().getValue(DispenserBlock.FACING);
-        EntityType<?> type = ((net.minecraft.world.item.SpawnEggItem) pStack.getItem()).getType(pStack.getTag());
+        EntityType<?> type = ((net.minecraft.world.item.SpawnEggItem) pStack.getItem()).getType(pStack.getTag()); // TODO: Make sure this works
 
         try {
             type.spawn(pSource.getLevel(), pStack, null, pSource.getPos().relative(face), MobSpawnType.DISPENSER, face != Direction.UP, false);
@@ -60,10 +59,6 @@ public class SpawnEggItem extends Item implements ItemColor {
 
     public SpawnEggItem(Properties props) {
         super(props);
-    }
-
-    public static DispenseItemBehavior createDispenseBehavior() {
-        return DEFAULT_DISPENSE_BEHAVIOR;
     }
 
     @Override
@@ -162,38 +157,6 @@ public class SpawnEggItem extends Item implements ItemColor {
                 return InteractionResultHolder.fail(itemstack);
             }
         }
-    }
-
-    private BlockPos correctPosition(BlockPos pos, Direction side) {
-        final int[] offsetsXForSide = new int[]{0, 0, 0, 0, -1, 1};
-        final int[] offsetsYForSide = new int[]{-1, 1, 0, 0, 0, 0};
-        final int[] offsetsZForSide = new int[]{0, 0, -1, 1, 0, 0};
-
-        int posX = pos.getX() + offsetsXForSide[side.ordinal()];
-        int posY = pos.getY() + offsetsYForSide[side.ordinal()];
-        int posZ = pos.getZ() + offsetsZForSide[side.ordinal()];
-
-        return new BlockPos(posX, posY, posZ);
-    }
-
-    private void activate(ItemStack stack, Level level, BlockPos pos, CompoundTag metadata) {
-        ChickensChicken entity = ModEntityTypes.CHICKEN.get().create(level);
-        if (entity == null) return;
-
-        entity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-        //entity.onInitialSpawn(level.getCurrentDifficultyAt(pos), null); TODO
-        entity.setChickenType(Utils.getTypeFromStack(stack));
-
-        Chickens.LOGGER.debug("Chicken Type Stack: {}; Entity: {}", Utils.getTypeFromStack(stack), entity.getChickenType());
-
-        CompoundTag stackNBT = stack.getTag();
-        if (stackNBT != null) {
-            CompoundTag entityNBT = entity.saveWithoutId(new CompoundTag());
-            entityNBT.merge(stackNBT);
-            entity.load(entityNBT);
-        }
-
-        level.addFreshEntity(entity);
     }
 
     public ItemStack fromChickenType(ResourceLocation chickenId) {

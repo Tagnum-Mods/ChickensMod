@@ -15,6 +15,7 @@
 - Coop to generate drops from spawn eggs
 - Random layTime to ChickenData
 - Special Menu Slots with restrictions
+- TOP Support and JAde Support
 
 ### Changed
 - Change build to 1.19.2
