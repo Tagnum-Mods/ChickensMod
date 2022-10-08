@@ -20,7 +20,7 @@ public record ChickenData(int tier, int primaryColor, int secondaryColor, Holder
                     Codec.INT.optionalFieldOf("tier", DEFAULT_TIER).forGetter(ChickenData::tier),
                     Codec.INT.fieldOf("primaryColor").forGetter(ChickenData::primaryColor),
                     Codec.INT.fieldOf("secondaryColor").forGetter(ChickenData::secondaryColor),
-                    Biome.LIST_CODEC.fieldOf("biomes").forGetter(ChickenData::availableBiomes),
+                    Biome.LIST_CODEC.fieldOf("biomes").forGetter(ChickenData::availableBiomes), // TODO: Replace this or figure out how to use this
                     ItemStack.CODEC.listOf().fieldOf("drops").forGetter(ChickenData::drops),
                     Codec.INT.optionalFieldOf("minLayTime", MIN_LAY_TIME).forGetter(ChickenData::minLayTime),
                     Codec.INT.optionalFieldOf("maxLayTime", MAX_LAY_TIME).forGetter(ChickenData::maxLayTime)
@@ -28,11 +28,11 @@ public record ChickenData(int tier, int primaryColor, int secondaryColor, Holder
     );
     public static final ChickenData EMPTY = new ChickenData(DEFAULT_TIER, 0xFFFFFF, 0x000000, null, Collections.emptyList(), MIN_LAY_TIME, MIN_LAY_TIME);
 
-    public ChickenData(int primaryColor, int secondaryColor, HolderSet.Direct<Biome> biomes, List<ItemStack> drops) {
+    public ChickenData(int primaryColor, int secondaryColor, HolderSet<Biome> biomes, List<ItemStack> drops) {
         this(DEFAULT_TIER, primaryColor, secondaryColor, biomes, drops);
     }
 
-    public ChickenData(int tier, int primaryColor, int secondaryColor, HolderSet.Direct<Biome> biomes, List<ItemStack> drops) {
+    public ChickenData(int tier, int primaryColor, int secondaryColor, HolderSet<Biome> biomes, List<ItemStack> drops) {
         this(tier, primaryColor, secondaryColor, biomes, drops, MIN_LAY_TIME, MAX_LAY_TIME);
     }
 
