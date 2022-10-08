@@ -119,4 +119,11 @@ public class Utils {
         return rl1.equals(rl2);
     }
 
+    /**
+     * @param itemStacks
+     * @return
+     */
+    public static List<ItemStack> copyItemStacks(Collection<ItemStack> itemStacks) {
+        return itemStacks.stream().map(ItemStack::copy).toList();
+    }
 }
